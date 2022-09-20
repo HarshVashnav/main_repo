@@ -6,5 +6,7 @@ public interface ConfirmOrder {
 
 	public void checkOutDetails();
 
+	public void purchase();
+
 	
 }

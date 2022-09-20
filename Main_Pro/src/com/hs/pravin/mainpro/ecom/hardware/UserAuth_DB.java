@@ -30,11 +30,11 @@ public class UserAuth_DB implements User_Product_DB {
 			ConnectionTest test = new ConnectionTest();
 			con = test.getConnectionDetails();
 			Statement stmt = con.createStatement();
-			String Insert_SQL = "insert into hardware(id,name,description,price,quantity)values('1','Hammer','Claw Hammer','400','1'),('2','Nut','Square Nuts','1','1500'),('3','Screw','Flat Head','1','1500'),('4','Pliers','Needle-nose Pliers','300','10'),('5','Pliers','Needle-nose Pliers','300','10'),('6','Hinge','Butterfly Hinge','100','5'),('7','Pipes','Pvc Pipes','80','100'),('8','Rope','Asbestose rope','20','100'),('9','Ladder','Telescopic ladder','8000','5'),('10','Tool box','Carpenter tool box','3000','3')";
+			String Insert_SQL = "insert into hardware(id,name,description,price,quantity)values('1','Hammer','Claw Hammer','400','1'),('2','Nut','Square Nuts','1','1500'),('3','Screw','Flat Head','1','1500'),('4','Pliers','Needle-nose Pliers','300','10'),('5','Lock','Door lock','300','10'),('6','Hinge','Butterfly Hinge','100','5'),('7','Pipes','Pvc Pipes','80','100'),('8','Rope','Asbestose rope','20','100'),('9','Ladder','Telescopic ladder','8000','5'),('10','Tool box','Carpenter tool box','3000','3')";
 
 			int numberOfRows = stmt.executeUpdate(Insert_SQL);
 			System.out.println("Records Updated " + numberOfRows);
-			// con.close();
+			//con.close();
 			// ps.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,7 +44,7 @@ public class UserAuth_DB implements User_Product_DB {
 	@Override
 	public void createTable() {
 		try {
-			String sql = "create table hardware (id int ,name varchar(255),description 			varchar	(255),price varchar(255),quantity varchar(255))";
+			String sql = "create table hardware (id int ,name varchar(255),description 	varchar	(255),price int,quantity int)";
 			ConnectionTest test = new ConnectionTest();
 			con = test.getConnectionDetails();
 			Statement statement = con.createStatement();
@@ -53,12 +53,12 @@ public class UserAuth_DB implements User_Product_DB {
 			e.printStackTrace();
 		}
 	}
-
+//
 	public static void main(String[] args) {
 		UserAuth_DB auth_DB = new UserAuth_DB();
-		auth_DB.userVerification();
-		auth_DB.createTable();
-		auth_DB.createProductDatabase();
+		//auth_DB.userVerification();
+//		auth_DB.createTable();
+//		auth_DB.createProductDatabase();
 
 	}
 

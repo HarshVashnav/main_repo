@@ -4,7 +4,7 @@ public interface ShowPro_Kart {
 
 	public void showProducts();
 
-	public void purchase();
+	
 
 	
 	

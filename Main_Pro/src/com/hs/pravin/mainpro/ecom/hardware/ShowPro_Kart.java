@@ -5,7 +5,4 @@ public interface ShowPro_Kart {
 	public void showProducts();
 
 	
-
-	
-	
 }

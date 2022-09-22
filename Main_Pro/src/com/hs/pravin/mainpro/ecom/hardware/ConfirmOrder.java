@@ -8,5 +8,4 @@ public interface ConfirmOrder {
 
 	public void purchase();
 
-	
 }

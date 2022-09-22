@@ -12,34 +12,24 @@ public class Show_Pro implements ShowPro_Kart {
 
 	@Override
 	public void showProducts() {
-	try {
-	ConnectionTest ct = new ConnectionTest();
-	con = ct.getConnectionDetails();
-	PreparedStatement ps = con.prepareStatement("SELECT * FROM diy_tools.hardware order by name asc");
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	System.out.println("Name of product        : " + rs.getString(2));
-	System.out.println("Description of product : " + rs.getString(3));
-	System.out.println("Price of product (INR) : " + rs.getString(4));
-	System.out.println("===========================================================================");
-	
-	}
-	} catch (SQLException e) {
+		try {
+			ConnectionTest ct = new ConnectionTest();
+			con = ct.getConnectionDetails();
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM diy_tools.hardware order by name asc");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				System.out.println("Product  ID            : " + rs.getString(1));
+				System.out.println("Name of product        : " + rs.getString(2));
+				System.out.println("Description of product : " + rs.getString(3));
+				System.out.println("Price of product (INR) : " + rs.getString(4));
+				System.out.println("===========================================================================");
 
-	e.printStackTrace();
-	}
+			}
+		} catch (SQLException e) {
 
-	}
-	
-	
+			e.printStackTrace();
+		}
 
-//	public static void main(String[] args) {
-//	Show_Pro sp = new Show_Pro();
-//	UserAuth_DB  db=new UserAuth_DB();
-//	
-
-	//sp.showProducts();
 	}
 
-	
-
+}

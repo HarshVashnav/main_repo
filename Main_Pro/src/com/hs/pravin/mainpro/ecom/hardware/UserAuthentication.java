@@ -1,12 +1,9 @@
 package com.hs.pravin.mainpro.ecom.hardware;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.Scanner;
 
-public class UserAuth_DB implements User_Product_DB {
-	Connection con = null;
+public class UserAuthentication {
+
 	String firstName;
 	String lastName;
 	String city;
@@ -18,14 +15,14 @@ public class UserAuth_DB implements User_Product_DB {
 	private String ansOfSecurityQue;
 	private String securityQue;
 
-	PreparedStatement ps;
-	Show_Pro sp = new Show_Pro();
-
 	static Scanner in = new Scanner(System.in);
 
-	@Override
-	public void userVerification() throws InterruptedException {
+	public static void welcome() {
 		System.out.println("\t\t\t\t\t\t******* Welcome To Hardware Store *******");
+	}
+
+	public void createAcc() throws InterruptedException {
+		// formatting();
 
 		System.out.println("\nFirst name ---> ");
 		firstName = in.next();
@@ -105,17 +102,14 @@ public class UserAuth_DB implements User_Product_DB {
 		} else {
 			return false;
 		}
-
 	}
 
-	public void authentication() {
-
+	public static void main(String[] args) {
 		int flag = 0;
-		UserAuth_DB cust = new UserAuth_DB();
-
+		UserAuthentication cust = new UserAuthentication();
+		welcome();
 		char opt = 'n';
 		while (opt == 'n') {
-
 			System.out.println("\nOptions:\n1.Signup \n2.Login");
 			formatting();
 			System.out.println("\nEnter your option: ");
@@ -123,7 +117,7 @@ public class UserAuth_DB implements User_Product_DB {
 			formatting1();
 			if (c == '1') {
 				try {
-					cust.userVerification();
+					cust.createAcc();
 					flag = 1;
 				} catch (Exception e) {
 
@@ -133,85 +127,16 @@ public class UserAuth_DB implements User_Product_DB {
 				if (cust.login()) {
 
 					formatting1();
-					System.out.println("Press 1 to Show Product List");
+					System.out.println("Options:\n1.Product Name\n2.Add to Cart\n3.Checkout Details");
 					formatting1();
 					char choice = in.next().charAt(0);
 					switch (choice) {
 					case '1':
-
-						UserAuth_DB uad1 = new UserAuth_DB();
-
-						sp.showProducts();
-
-						Proceed_to_ConfirmOrder ptc = new Proceed_to_ConfirmOrder();
-						ptc.addedToCart();
-						ptc.checkOutDetails();
-						ptc.purchase();
-						User_Registry usr = new User_Registry();
-						usr.history();
-						uad1.userReg();
-						usr.show_Registory();
 						break;
-
 					}
+
 				}
 			}
 		}
-
 	}
-
-	@Override
-	public void createProductDatabase() {
-		try {
-			ConnectionTest test = new ConnectionTest();
-			con = test.getConnectionDetails();
-			Statement stmt = con.createStatement();
-			String Insert_SQL = "insert into hardware(id,name,description,price,quantity)values('1','hammer','Claw Hammer','400','1'),('2','nut','Square Nuts','1','1500'),('3','screw','Flat Head','1','1500'),('4','pliers','Needle-nose Pliers','300','10'),('5','lock','Door lock','300','10'),('6','hinge','Butterfly Hinge','100','5'),('7','pipes','Pvc Pipes','80','100'),('8','rope','Asbestose rope','20','100'),('9','ladder','Telescopic ladder','8000','5'),('10','toolbox','Carpenter tool box','3000','3');";
-
-			int numberOfRows = stmt.executeUpdate(Insert_SQL);
-			System.out.println("Records Updated " + numberOfRows);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void createTable() {
-		try {
-			String sql = "create table hardware (id int ,name varchar(255),description 	varchar	(255),price int,quantity int);";
-			ConnectionTest test = new ConnectionTest();
-			con = test.getConnectionDetails();
-			Statement statement = con.createStatement();
-			statement.execute(sql);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void userReg() {
-
-		try {
-
-			String sql = "create table diy_tools.registeredUser (Username varchar(255),City varchar(255),Emailid varchar(255));";
-			ConnectionTest test = new ConnectionTest();
-			con = test.getConnectionDetails();
-			Statement statement = con.createStatement();
-			statement.execute(sql);
-
-			ps = con.prepareStatement("insert into registeredUser(Username,City ,Email id)values(?,?,?);");
-
-			ps.setString(1, userName);
-			ps.setString(2, city);
-			ps.setString(3, emailId);
-
-			int iny = ps.executeUpdate();
-			System.out.println("Records updated " + iny);
-
-		} catch (Exception e) {
-			System.out.println(" ");
-		}
-	}
-
 }

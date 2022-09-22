@@ -2,8 +2,8 @@ package com.hs.pravin.mainpro.ecom.hardware;
 
 public interface Registry_History {
 
-	public void userRegistery();
+	public void history();
 
-	public void orderHistory();
-	
+	public void show_Registory();
+
 }

@@ -5,13 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Proceed_to_ConfirmOrder implements ConfirmOrder {
-	
+
 	Connection con;
-    PreparedStatement ps;
+	PreparedStatement ps;
 
 	Scanner in = new Scanner(System.in);
 	int pId;
@@ -20,6 +22,8 @@ public class Proceed_to_ConfirmOrder implements ConfirmOrder {
 	String choice;
 	int paidamount;
 	String pname1;
+	int Time;
+
 	@Override
 	public void addedToCart() {
 		char choice = 'y';
@@ -39,7 +43,7 @@ public class Proceed_to_ConfirmOrder implements ConfirmOrder {
 	public void checkOutDetails() {
 
 		System.out.println("Your order bifurcation is :");
-		System.out.println("Product Name:" + pId);
+		System.out.println("Product Name:" + pname1);
 		System.out.println("Quantity" + quantity);
 
 		try {
@@ -53,12 +57,20 @@ public class Proceed_to_ConfirmOrder implements ConfirmOrder {
 			if (executeQuery.next()) {
 				price = executeQuery.getInt(1);
 			}
-		  paidamount = quantity * price;
-			System.out.println("Amount to be paid for " + pId + " x " + quantity + " Nos. " + "=" + (quantity * price));
+			paidamount = quantity * price;
+			System.out.println(
+					"Amount to be paid for " + pname1 + " x " + quantity + " Nos. " + "=" + (quantity * price));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void gettime() {
+
+		LocalDateTime myDateObj = LocalDateTime.now();
+		LocalDateTime Time = myDateObj;
+
 	}
 
 	@Override
@@ -68,32 +80,31 @@ public class Proceed_to_ConfirmOrder implements ConfirmOrder {
 		Random obj = new Random();
 		txn += obj.nextInt(1000);
 		System.out.println("txn :" + txn);
-		System.out.println("Amount to be paid for" + (quantity * price));
+		System.out.println("Amount to be paid for " + (quantity * price) + "INR");
 		System.out.println("Please Re-Enter your UserName");
 		String username1 = in.next();
-		
-		
+
 		try {
-			String sql = "CREATE table UserReg (username varchar(255), txnid varchar(255),namem varchar(255), quantity int, paidamount int) ";
+			String sql = "CREATE table history (username varchar(255), txnid varchar(255),namem varchar(255), quantity int, paidamount int, Time int) ";
 			ConnectionTest test = new ConnectionTest();
 			con = test.getConnectionDetails();
 			Statement statement = con.createStatement();
-			//statement.execute(sql);
-			
-			ps = con.prepareStatement("insert into userreg (username,txnid,namem,quantity,paidamount)values(?,?,?,?,?);");
+			statement.execute(sql);
 
+			ps = con.prepareStatement(
+					"insert into history (username,txnid,namem,quantity,paidamount,Time)values(?,?,?,?,?,?);");
 			{
-			
-			ps.setString(1,username1);
-			ps.setString(2,txn);
-			ps.setString(3,pname1);
-			ps.setInt(4,quantity);
-			ps.setInt(5,paidamount);
+				ps.setString(1, username1);
+				ps.setString(2, txn);
+				ps.setString(3, pname1);
+				ps.setInt(4, quantity);
+				ps.setInt(5, paidamount);
+				ps.setInt(6, Time);
 			}
-			
-			int iny =ps.executeUpdate();
-			System.out.println("Records updated "+ iny);
-			
+
+			int iny = ps.executeUpdate();
+			System.out.println("Records updated " + iny);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -101,10 +112,10 @@ public class Proceed_to_ConfirmOrder implements ConfirmOrder {
 
 	public static void main(String[] args) {
 		Proceed_to_ConfirmOrder obj = new Proceed_to_ConfirmOrder();
-		
+		obj.gettime();
 		obj.addedToCart();
 		obj.checkOutDetails();
-		 obj.purchase();
+		obj.purchase();
 
 	}
 

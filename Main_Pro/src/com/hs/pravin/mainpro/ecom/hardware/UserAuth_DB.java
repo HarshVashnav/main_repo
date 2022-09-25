@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class UserAuth_DB implements User_Product_DB {
 	Connection con = null;
+	PreparedStatement ps;
 	String firstName;
 	String lastName;
 	String city;
@@ -18,7 +19,7 @@ public class UserAuth_DB implements User_Product_DB {
 	private String ansOfSecurityQue;
 	private String securityQue;
 
-	PreparedStatement ps;
+	
 	Show_Pro sp = new Show_Pro();
 
 	static Scanner in = new Scanner(System.in);
@@ -150,6 +151,7 @@ public class UserAuth_DB implements User_Product_DB {
 						User_Registry usr = new User_Registry();
 						usr.history();
 						uad1.userReg();
+						uad1.insertRegisteredUser();
 						usr.show_Registory();
 						break;
 
@@ -194,24 +196,33 @@ public class UserAuth_DB implements User_Product_DB {
 
 		try {
 
-			String sql = "create table diy_tools.registeredUser (Username varchar(255),City varchar(255),Emailid varchar(255));";
+			String sql = "create table diy_tools.registeredUser (Username varchar(255) ,City varchar(255) ,Emailid varchar(255));";
 			ConnectionTest test = new ConnectionTest();
 			con = test.getConnectionDetails();
 			Statement statement = con.createStatement();
 			statement.execute(sql);
 
-			ps = con.prepareStatement("insert into registeredUser(Username,City ,Email id)values(?,?,?);");
-
-			ps.setString(1, userName);
-			ps.setString(2, city);
-			ps.setString(3, emailId);
-
-			int iny = ps.executeUpdate();
-			System.out.println("Records updated " + iny);
+			
 
 		} catch (Exception e) {
 			System.out.println(" ");
 		}
+	}
+	
+	public void insertRegisteredUser() {
+		try {
+			ps = con.prepareStatement("insert into registeredUser(Username,City ,Emailid)values(?,?,?);");
+
+			ps.setString(1, "firstName");
+			ps.setString(2, "city");
+			ps.setString(3, "emailId");
+
+			int iny = ps.executeUpdate();
+			System.out.println("Records updated " + iny);
+		} catch (Exception e) {
+			
+		}
+		
 	}
 
 }

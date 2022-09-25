@@ -5,10 +5,10 @@ import java.time.format.DateTimeFormatter;
 
 public class Time {
 
-	public static void main(String[] args) {
-		LocalDateTime myDateObj = LocalDateTime.now();
-		System.out.println("Before formatting: " + myDateObj);
-
-	}
+//	public static void main(String[] args) {
+//		LocalDateTime myDateObj = LocalDateTime.now();
+//		System.out.println("Before formatting: " + myDateObj);
+//
+//	}
 
 }

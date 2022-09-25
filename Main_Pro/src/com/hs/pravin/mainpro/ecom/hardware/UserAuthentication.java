@@ -103,40 +103,6 @@ public class UserAuthentication {
 			return false;
 		}
 	}
-
-	public static void main(String[] args) {
-		int flag = 0;
-		UserAuthentication cust = new UserAuthentication();
-		welcome();
-		char opt = 'n';
-		while (opt == 'n') {
-			System.out.println("\nOptions:\n1.Signup \n2.Login");
-			formatting();
-			System.out.println("\nEnter your option: ");
-			char c = in.next().charAt(0);
-			formatting1();
-			if (c == '1') {
-				try {
-					cust.createAcc();
-					flag = 1;
-				} catch (Exception e) {
-
-					System.out.println("Something went wrong. Please try after sometime.");
-				}
-			} else {
-				if (cust.login()) {
-
-					formatting1();
-					System.out.println("Options:\n1.Product Name\n2.Add to Cart\n3.Checkout Details");
-					formatting1();
-					char choice = in.next().charAt(0);
-					switch (choice) {
-					case '1':
-						break;
-					}
-
-				}
-			}
-		}
-	}
 }
+
+

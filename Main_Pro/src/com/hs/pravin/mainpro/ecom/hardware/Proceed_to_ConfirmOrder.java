@@ -110,13 +110,13 @@ public class Proceed_to_ConfirmOrder implements ConfirmOrder {
 		}
 	}
 
-	public static void main(String[] args) {
-		Proceed_to_ConfirmOrder obj = new Proceed_to_ConfirmOrder();
-		obj.gettime();
-		obj.addedToCart();
-		obj.checkOutDetails();
-		obj.purchase();
+//	public static void main(String[] args) {
+//		Proceed_to_ConfirmOrder obj = new Proceed_to_ConfirmOrder();
+//		obj.gettime();
+//		obj.addedToCart();
+//		obj.checkOutDetails();
+//		obj.purchase();
 
-	}
+//	}
 
 }
